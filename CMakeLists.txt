@@ -229,6 +229,10 @@ if(NOT PD_LOCALE)
     list(APPEND LIBPD_COMPILE_DEFINITIONS LIBPD_NO_NUMERIC=1)
 endif()
 
+if(WIN32)
+    target_compile_definitions(libpd_static PUBLIC EXTERN=extern)
+endif()
+
 if(UNIX)
     list(APPEND LIBPD_COMPILE_DEFINITIONS HAVE_LIBDL)
     target_link_libraries(libpd PUBLIC ${CMAKE_DL_LIBS})
