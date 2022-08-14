@@ -208,7 +208,7 @@ if(PD_EXTRA)
 endif()
 
 add_library(libpd_static STATIC ${SOURCE_FILES})
-add_library(libpd        SHARED ${SOURCE_FILES})
+# add_library(libpd        SHARED ${SOURCE_FILES})
 
 # set the output library name for libpd depending on the settings
 set(LIBPD_OUTPUT_NAME     pd)
@@ -223,7 +223,7 @@ if (WIN32)
 else()
     set_target_properties(libpd_static PROPERTIES OUTPUT_NAME ${LIBPD_OUTPUT_NAME})
 endif()
-set_target_properties(libpd            PROPERTIES OUTPUT_NAME ${LIBPD_OUTPUT_NAME})
+# set_target_properties(libpd            PROPERTIES OUTPUT_NAME ${LIBPD_OUTPUT_NAME})
 
 # add appropriate compile definitions
 set(LIBPD_COMPILE_DEFINITIONS PD_INTERNAL)
@@ -250,26 +250,26 @@ endif()
 
 if(UNIX)
     list(APPEND LIBPD_COMPILE_DEFINITIONS HAVE_LIBDL)
-    target_link_libraries(libpd PUBLIC ${CMAKE_DL_LIBS})
+#    target_link_libraries(libpd PUBLIC ${CMAKE_DL_LIBS})
 endif()
 
 target_compile_definitions(libpd_static PRIVATE ${LIBPD_COMPILE_DEFINITIONS})
-target_compile_definitions(libpd        PRIVATE ${LIBPD_COMPILE_DEFINITIONS})
+#target_compile_definitions(libpd        PRIVATE ${LIBPD_COMPILE_DEFINITIONS})
 
 # link against necessary libraries
 if(MSVC)
-    target_link_libraries(libpd PUBLIC Ws2_32)
+    # target_link_libraries(libpd PUBLIC Ws2_32)
     target_include_directories(libpd_static PUBLIC ${PTHREADS_INCLUDE_DIR})
-    target_include_directories(libpd        PUBLIC ${PTHREADS_INCLUDE_DIR})
+    # target_include_directories(libpd        PUBLIC ${PTHREADS_INCLUDE_DIR})
 elseif(WIN32)
-    target_link_libraries(libpd PUBLIC -Wl,--export-all-symbols ws2_32 kernel32 -static-libgcc)
+    # target_link_libraries(libpd PUBLIC -Wl,--export-all-symbols ws2_32 kernel32 -static-libgcc)
 endif()
-target_link_libraries(libpd PUBLIC ${CMAKE_THREAD_LIBS_INIT})
+# target_link_libraries(libpd PUBLIC ${CMAKE_THREAD_LIBS_INIT})
 
 if(NOT MSVC AND NOT APPLE)
     find_library(M_LIBRARIES m)
     if(M_LIBRARIES)
-      target_link_libraries(libpd PUBLIC ${M_LIBRARIES})
+ #     target_link_libraries(libpd PUBLIC ${M_LIBRARIES})
     endif()
 endif()
 
